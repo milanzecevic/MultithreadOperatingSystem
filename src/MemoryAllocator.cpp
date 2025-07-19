@@ -3,3 +3,5 @@
 //
 
 #include "../h/MemoryAllocator.hpp"
+MemBlock* MemoryAllocator::freeMem = nullptr;
+MemBlock* MemoryAllocator::usedMem = nullptr;
