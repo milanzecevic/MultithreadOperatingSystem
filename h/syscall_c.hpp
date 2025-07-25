@@ -5,10 +5,29 @@
 #ifndef OSPROJECT_SYSCALL_C_HPP
 #define OSPROJECT_SYSCALL_C_HPP
 
+#include "../lib/hw.h"
 
-class syscall_c {
+void* mem_alloc(size_t size);
+int nen_free(void*);
 
-};
+class TCB;
+typedef TCB _thread;
+typedef _thread* thread_t;
+int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg);
+int thread_exit();
+void thread_dispatch();
+
+class _sem;
+typedef _sem* sem_t;
+int sem_open (sem_t* handle, unsigned init);
+int sem_close(sem_t handle);
+int sem_wait(sem_t id);
+int sem_signal(sem_t id);
+int sem_trywait(sem_t id);
+
+const int EOF = -1;
+char getc();
+void putc(char);
 
 
 #endif //OSPROJECT_SYSCALL_C_HPP
