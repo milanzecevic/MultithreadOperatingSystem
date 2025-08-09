@@ -1,2 +1,5 @@
 # IDE files
 .idea/
+.gdbinit
+kernel
+kernel.asm

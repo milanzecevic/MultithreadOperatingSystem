@@ -8,7 +8,7 @@
 #include "../lib/hw.h"
 
 void* mem_alloc(size_t size);
-int nen_free(void*);
+int mem_free(void*);
 
 class TCB;
 typedef TCB _thread;

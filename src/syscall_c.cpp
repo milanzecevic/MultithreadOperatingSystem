@@ -17,7 +17,7 @@ void *mem_alloc(size_t size) {
     return returnAdr;
 }
 
-int nen_free(void *adrPtr) {
+int mem_free(void *adrPtr) {
     int retVal = -1;
     __asm__ volatile("mv a1, %0" : : "r"(adrPtr));
     __asm__ volatile("mv a0, %0" : : "r"(0x02));
