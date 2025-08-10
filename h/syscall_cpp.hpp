@@ -42,12 +42,5 @@ private:
     sem_t myHandle;
 };
 
-class Console {
-public:
-    static char getc ();
-    static void putc (char);
-};
-
-
 
 #endif //OSPROJECT_SYSCALL_CPP_HPP

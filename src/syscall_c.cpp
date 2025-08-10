@@ -3,6 +3,8 @@
 //
 
 #include "../h/syscall_c.hpp"
+#include "../lib/console.h"
+#include "../lib/hw.h"
 
 void *mem_alloc(size_t size) {
     size_t newSize = size/MEM_BLOCK_SIZE;
@@ -28,6 +30,8 @@ int mem_free(void *adrPtr) {
 
 int thread_create(thread_t *handle, void (*start_routine)(void *), void *arg) {
     int retVal = -1;
+    char* stack_space = (char*)mem_alloc(DEFAULT_STACK_SIZE);
+    __asm__ volatile("mv a4, %0" : : "r"(stack_space));
     __asm__ volatile("mv a3, %0" : : "r"(arg));
     __asm__ volatile("mv a2, %0" : : "r"(start_routine));
     __asm__ volatile("mv a1, %0" : : "r"(handle));
@@ -97,15 +101,17 @@ int sem_trywait(sem_t id) {
 }
 
 char getc() {
-    char c;
-    __asm__ volatile("mv a0, %0" : : "r"(0x41));
-    __asm__ volatile("ecall");
-    __asm__ volatile("mv %0, a0" : "=r"(c));
-    return c;
+    return __getc();
+//    char c;
+//    __asm__ volatile("mv a0, %0" : : "r"(0x41));
+//    __asm__ volatile("ecall");
+//    __asm__ volatile("mv %0, a0" : "=r"(c));
+//    return c;
 }
 
 void putc(char c) {
-    __asm__ volatile("mv a1, %0" : : "r"(c));
-    __asm__ volatile("mv a0, %0" : : "r"(0x42));
-    __asm__ volatile("ecall");
+    __putc(c);
+//    __asm__ volatile("mv a1, %0" : : "r"(c));
+//    __asm__ volatile("mv a0, %0" : : "r"(0x42));
+//    __asm__ volatile("ecall");
 }

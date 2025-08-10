@@ -35,7 +35,17 @@ void Riscv::handleSupervisorTrap() {
                 break;
             }
             case 0x11: { //thread_create
-                //thread* handle;
+                TCB** handle;
+                TCB::Body body;
+                void* arg;
+                char* stack_space;
+                __asm__ volatile("mv %0, a1" : "=r"(handle));
+                __asm__ volatile("mv %0, a2" : "=r"(body));
+                __asm__ volatile("mv %0, a3" : "=r"(arg));
+                __asm__ volatile("mv %0, a4" : "=r"(stack_space));
+                *handle = TCB::createThread(body, arg, stack_space);
+                int retVal = (*handle != nullptr) ? 0 : -1;
+                __asm__ volatile("sd %0, 80(s0)" : : "r"(retVal));
                 break;
             }
             case 0x12: { //thread_exit
@@ -59,12 +69,12 @@ void Riscv::handleSupervisorTrap() {
             case 0x26: { //sem_trywait
                 break;
             }
-            case 0x41: { //getc
-                break;
-            }
-            case 0x42: { //putc
-                break;
-            }
+//            case 0x41: { //getc
+//                break;
+//            }
+//            case 0x42: { //putc
+//                break;
+//            }
         }
         w_sstatus(sstatus);
         w_sepc(sepc);

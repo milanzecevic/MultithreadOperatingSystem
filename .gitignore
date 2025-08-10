@@ -3,3 +3,4 @@
 .gdbinit
 kernel
 kernel.asm
+build/

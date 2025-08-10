@@ -24,3 +24,45 @@ void operator delete[](void *p) noexcept {
 }
 
 
+Thread::Thread(void (*body)(void *), void *arg) {
+
+}
+
+Thread::~Thread() {
+
+}
+
+int Thread::start() {
+    return 0;
+}
+
+void Thread::dispatch() {
+
+}
+
+Thread::Thread() {
+
+}
+
+
+Semaphore::Semaphore(unsigned int init) {
+
+}
+
+Semaphore::~Semaphore() {
+
+}
+
+int Semaphore::wait() {
+    return 0;
+}
+
+int Semaphore::signal() {
+    return 0;
+}
+
+int Semaphore::tryWait() {
+    return 0;
+}
+
+
