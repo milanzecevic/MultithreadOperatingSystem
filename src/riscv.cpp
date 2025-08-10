@@ -24,14 +24,14 @@ void Riscv::handleSupervisorTrap() {
                 size_t size;
                 __asm__ volatile("mv %0, a1" : "=r"(size));
                 void* returnAdr = __mem_alloc(size);
-                __asm__ volatile("sd %0, 10 * 8(fp)" : : "r"(returnAdr));
+                __asm__ volatile("sd %0, 80(s0)" : : "r"(returnAdr));
                 break;
             }
             case 0x02: { //mem_free
                 void* adrPtr;
                 __asm__ volatile("mv %0, a1" : "=r"(adrPtr));
                 int retVal = __mem_free(adrPtr);
-                __asm__ volatile("mv a0, %0" : : "r"(retVal));
+                __asm__ volatile("sd %0, 80(s0)" : : "r"(retVal));
                 break;
             }
             case 0x11: { //thread_create
