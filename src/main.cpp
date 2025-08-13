@@ -11,6 +11,10 @@ void shutdown() {
     *shutdownAdr = 0x5555;
 }
 
+void simpleThread(void* arg) {
+    // Thread body - won't execute without dispatch
+}
+
 int main() {
 
     Riscv::w_stvec((uint64) &Riscv::supervisorTrap);
@@ -19,3 +23,4 @@ int main() {
 
     return 0;
 }
+

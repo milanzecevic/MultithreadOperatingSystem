@@ -8,6 +8,7 @@
 
 #include "../lib/hw.h"
 #include "scheduler.hpp"
+#include "syscall_c.hpp"
 
 // Thread Control Block
 class TCB
@@ -22,8 +23,6 @@ public:
     using Body = void (*)();
 
     static TCB *createThread(Body body, void* arg, char* stack_space);
-
-    static void yield();
 
     static TCB *running;
 

@@ -5,7 +5,9 @@
 #include "../h/riscv.hpp"
 #include "../lib/console.h"
 #include "../h/tcb.hpp"
+#include "../h/print.hpp"
 #include "../lib/mem.h"   //dok ne uvezem svoj MemmoryAllocator
+
 
 void Riscv::popSppSpie() {
     __asm__ volatile("csrw sepc, ra");
@@ -49,9 +51,13 @@ void Riscv::handleSupervisorTrap() {
                 break;
             }
             case 0x12: { //thread_exit
+                TCB::running->setFinished(true);
+                TCB::dispatch();
+                __asm__ volatile("sd %0, 80(s0)" : : "r"(0));
                 break;
             }
             case 0x13: { //thread_dispatch
+                TCB::dispatch();
                 break;
             }
             case 0x21: { //sem_open
@@ -82,6 +88,10 @@ void Riscv::handleSupervisorTrap() {
         console_handler();
     } else {
         //error
+        printString("Error!!!");
+
+        volatile int* shutdownAdr = (int*) 0x100000;
+        *shutdownAdr = 0x5555;
     }
 }
 

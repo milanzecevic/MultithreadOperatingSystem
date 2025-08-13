@@ -12,11 +12,6 @@ TCB *TCB::createThread(Body body, void* arg, char* stack_space)
     return new TCB(body, arg, stack_space);
 }
 
-void TCB::yield()
-{
-    __asm__ volatile ("ecall");
-}
-
 void TCB::dispatch()
 {
     TCB *old = running;
@@ -31,6 +26,6 @@ void TCB::threadWrapper()
     Riscv::popSppSpie();
     running->body();
     running->setFinished(true);
-    TCB::yield();
+    thread_dispatch();
 }
 
