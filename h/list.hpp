@@ -1,6 +1,8 @@
 //
 // Created by os on 7/11/25.
 //
+//     ------KOD PREUZET SA VEZBI 7------
+//     ------ZADATAK 06 I ZADATAK 07------
 
 #ifndef OSPROJECT_LIST_HPP
 #define OSPROJECT_LIST_HPP

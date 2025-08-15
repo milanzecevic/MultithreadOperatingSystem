@@ -1,6 +1,8 @@
 //
 // Created by os on 7/19/25.
 //
+//     ------KOD PREUZET SA VEZBI 7------
+//     ------ZADATAK 06 I ZADATAK 07------
 
 #include "../h/scheduler.hpp"
 

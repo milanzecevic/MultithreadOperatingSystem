@@ -1,6 +1,8 @@
 //
 // Created by os on 7/20/25.
 //
+//     ------DEO KODA PREUZET SA VEZBI 7------
+//     ------ZADATAK 06 I ZADATAK 07------
 
 #include "../h/tcb.hpp"
 #include "../h/riscv.hpp"
@@ -15,7 +17,7 @@ TCB *TCB::createThread(Body body, void* arg, char* stack_space)
 void TCB::dispatch()
 {
     TCB *old = running;
-    if (!old->isFinished()) { Scheduler::put(old); }
+    if (!old->isFinished() && !old->isBlocked()) { Scheduler::put(old); }
     running = Scheduler::get();
 
     TCB::contextSwitch(&old->context, &running->context);
@@ -24,8 +26,9 @@ void TCB::dispatch()
 void TCB::threadWrapper()
 {
     Riscv::popSppSpie();
-    running->body();
-    running->setFinished(true);
-    thread_dispatch();
+    running->body(running->arg);
+    thread_exit();
 }
+
+
 

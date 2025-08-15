@@ -1,3 +1,7 @@
+//     ------KOD PREUZET SA VEZBI 7------
+//     ------ZADATAK 06 I ZADATAK 07------
+
+
 .global _ZN3TCB13contextSwitchEPNS_7ContextES1_
 .type _ZN3TCB13contextSwitchEPNS_7ContextES1_, @function
 _ZN3TCB13contextSwitchEPNS_7ContextES1_:

@@ -1,3 +1,6 @@
+//     ------KOD PREUZET SA VEZBI 7------
+//     ------ZADATAK 06 I ZADATAK 07------
+
 .extern _ZN5Riscv20handleSupervisorTrapEv
 
 .align 4
