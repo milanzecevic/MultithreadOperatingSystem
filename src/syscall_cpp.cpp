@@ -25,44 +25,48 @@ void operator delete[](void *p) noexcept {
 
 
 Thread::Thread(void (*body)(void *), void *arg) {
-
+    this->body = body;
+    this->arg = arg;
+    myHandle = nullptr;
 }
 
 Thread::~Thread() {
-
+    thread_exit();
 }
 
 int Thread::start() {
-    return 0;
+    return thread_create(&myHandle, body, arg);
 }
 
 void Thread::dispatch() {
-
+    thread_dispatch();
 }
 
 Thread::Thread() {
-
+    this->body = nullptr;
+    this->arg = nullptr;
+    myHandle = nullptr;
 }
 
 
 Semaphore::Semaphore(unsigned int init) {
-
+    sem_open(&myHandle, init);
 }
 
 Semaphore::~Semaphore() {
-
+    sem_close(myHandle);
 }
 
 int Semaphore::wait() {
-    return 0;
+    return sem_wait(myHandle);
 }
 
 int Semaphore::signal() {
-    return 0;
+    return sem_signal(myHandle);
 }
 
 int Semaphore::tryWait() {
-    return 0;
+    return sem_trywait(myHandle);
 }
 
 
