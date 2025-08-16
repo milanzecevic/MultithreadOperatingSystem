@@ -31,21 +31,28 @@ Thread::Thread(void (*body)(void *), void *arg) {
 }
 
 Thread::~Thread() {
-    thread_exit();
+
 }
 
 int Thread::start() {
-    return thread_create(&myHandle, body, arg);
+    if (this->body) {
+        thread_create(&myHandle, this->body, this->arg);
+    } else {
+        thread_create(&myHandle, reinterpret_cast<void (*)(void *)>(runWrapper), this);
+    }
+    return 1;
 }
 
 void Thread::dispatch() {
     thread_dispatch();
 }
 
-Thread::Thread() {
-    this->body = nullptr;
-    this->arg = nullptr;
-    myHandle = nullptr;
+Thread::Thread() : myHandle(nullptr), body(nullptr), arg(nullptr){
+
+}
+
+void Thread::runWrapper(Thread *thread) {
+    thread->run();
 }
 
 
@@ -70,3 +77,10 @@ int Semaphore::tryWait() {
 }
 
 
+char Console::getc() {
+    return ::getc();
+}
+
+void Console::putc(char character) {
+    ::putc(character);
+}

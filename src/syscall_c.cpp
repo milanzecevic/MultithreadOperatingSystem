@@ -2,7 +2,7 @@
 // Created by os on 7/19/25.
 //
 
-#include "../h/syscall_c.hpp"
+#include "../h/syscall_c.h"
 #include "../lib/console.h"
 #include "../lib/hw.h"
 

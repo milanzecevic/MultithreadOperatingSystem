@@ -2,8 +2,8 @@
 // Created by os on 7/19/25.
 //
 
-#ifndef OSPROJECT_SYSCALL_C_HPP
-#define OSPROJECT_SYSCALL_C_HPP
+#ifndef OSPROJECT_SYSCALL_C_H
+#define OSPROJECT_SYSCALL_C_H
 
 #include "../lib/hw.h"
 
@@ -30,4 +30,4 @@ char getc();
 void putc(char);
 
 
-#endif //OSPROJECT_SYSCALL_C_HPP
+#endif //OSPROJECT_SYSCALL_C_H

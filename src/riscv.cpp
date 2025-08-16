@@ -118,9 +118,9 @@ void Riscv::handleSupervisorTrap() {
         Riscv::mc_sip(SIP_SSIE);
     } else {
         //error
-        printString("Error!!!");
+        printStringMoj("Error!!!");
         uint64 volatile sepc = r_sepc();
-        printInteger(sepc);
+        printIntMoj(sepc);
 
         volatile int* shutdownAdr = (int*) 0x100000;
         *shutdownAdr = 0x5555;

@@ -6,7 +6,7 @@
 #define OSPROJECT_SYSCALL_CPP_HPP
 
 
-#include "syscall_c.hpp"
+#include "syscall_c.h"
 
 
 void* operator new (size_t n);
@@ -24,7 +24,8 @@ public:
 
 protected:
     Thread ();
-    virtual void run () {}
+    static void runWrapper(Thread *thread);
+    virtual void run () {};
 private:
     thread_t myHandle;
     void (*body)(void*); void* arg;
@@ -40,6 +41,13 @@ public:
     int tryWait();
 private:
     sem_t myHandle;
+};
+
+class Console {
+public:
+    static char getc();
+
+    static void putc(char character);
 };
 
 

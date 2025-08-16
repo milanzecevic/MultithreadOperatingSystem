@@ -4,3 +4,5 @@
 kernel
 kernel.asm
 build/
+test/
+src/userMain.cpp

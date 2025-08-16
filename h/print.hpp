@@ -7,9 +7,9 @@
 
 #include "../lib/hw.h"
 
-extern void printString(char const *string);
+extern void printStringMoj(char const *string);
 
-extern void printInteger(uint64 integer);
+extern void printIntMoj(uint64 integer);
 
 
 #endif //OSPROJECT_PRINT_HPP

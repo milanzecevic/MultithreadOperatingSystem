@@ -10,7 +10,7 @@
 
 #include "../lib/hw.h"
 #include "scheduler.hpp"
-#include "syscall_c.hpp"
+#include "syscall_c.h"
 
 // Thread Control Block
 class TCB
