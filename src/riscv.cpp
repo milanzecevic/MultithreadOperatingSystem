@@ -103,12 +103,17 @@ void Riscv::handleSupervisorTrap() {
                 __asm__ volatile("sd %0, 80(s0)" : : "r"(retVal));
                 break;
             }
-//            case 0x41: { //getc
-//                break;
-//            }
-//            case 0x42: { //putc
-//                break;
-//            }
+            case 0x41: { //getc
+                char c = __getc();
+                __asm__ volatile("sd %0, 80(s0)" : : "r"(c));
+                break;
+            }
+            case 0x42: { //putc
+                char c;
+                __asm__ volatile("ld %0, 88(s0)" : "=r"(c));
+                __putc(c);
+                break;
+            }
         }
         w_sstatus(sstatus);
         w_sepc(sepc);
@@ -119,8 +124,16 @@ void Riscv::handleSupervisorTrap() {
     } else {
         //error
         printStringMoj("Error!!!");
+        printStringMoj("\n");
+        printStringMoj("SEPC: ");
         uint64 volatile sepc = r_sepc();
         printIntMoj(sepc);
+        printStringMoj("\n");
+
+        printStringMoj("SCAUSE: ");
+        uint64 volatile scause = r_scause();
+        printIntMoj(scause);
+        printStringMoj("\n");
 
         volatile int* shutdownAdr = (int*) 0x100000;
         *shutdownAdr = 0x5555;

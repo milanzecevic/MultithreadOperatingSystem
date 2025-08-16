@@ -17,8 +17,8 @@ int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg);
 int thread_exit();
 void thread_dispatch();
 
-class _sem;
-typedef _sem* sem_t;
+class Semaphore;
+typedef Semaphore* sem_t;
 int sem_open (sem_t* handle, unsigned init);
 int sem_close(sem_t handle);
 int sem_wait(sem_t id);

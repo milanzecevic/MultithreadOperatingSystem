@@ -145,17 +145,20 @@ int sem_trywait(sem_t id) {
 }
 
 char getc() {
-    return __getc();
-//    char c;
-//    __asm__ volatile("mv a0, %0" : : "r"(0x41));
-//    __asm__ volatile("ecall");
-//    __asm__ volatile("mv %0, a0" : "=r"(c));
-//    return c;
+    char c;
+    __asm__ volatile("mv a0, %0" : : "r"(0x41));
+    __asm__ volatile("ecall");
+    __asm__ volatile("mv %0, a0" : "=r"(c));
+    return c;
 }
 
 void putc(char c) {
-    __putc(c);
 //    __asm__ volatile("mv a1, %0" : : "r"(c));
 //    __asm__ volatile("mv a0, %0" : : "r"(0x42));
-//    __asm__ volatile("ecall");
+    __asm__ volatile(
+            "mv a1, %[character]\n"
+            "mv a0, %[code]\n"
+            : : [character] "r"(c), [code] "r"(0x42)
+    );
+    __asm__ volatile("ecall");
 }

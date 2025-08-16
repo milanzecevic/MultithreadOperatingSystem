@@ -42,7 +42,7 @@ void Semaphore::block() {
     blockedThreadQueue.addLast(TCB::running);
     // TCB::running->state = TCB::BLOCKED;
     TCB::running->setBlocked(true);
-    thread_dispatch();
+    TCB::dispatch();
 }
 
 void Semaphore::unblock() {
