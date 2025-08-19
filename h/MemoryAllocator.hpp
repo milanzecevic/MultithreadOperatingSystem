@@ -12,12 +12,23 @@ struct MemBlock{
 };
 
 class MemoryAllocator {
+private:
     static MemBlock *freeMem;
     static MemBlock *usedMem;
+
+    static MemBlock* findFirstFit(size_t blocks);
+    static void insertToFreeList(MemBlock* block);
+    static void coalesceBlocks();
+    static bool isValidHeapAddress(void* addr);
+
 public:
     static void initialize();
-    static void* mem_alloc (size_t size);
-    static int mem_free (void*);
+    static void* mem_alloc(size_t size);
+    static int mem_free(void* ptr);
+
+    static void printHeapStatus();
+    static size_t getUsedMemory();
+    static size_t getFreeMemory();
 };
 
 

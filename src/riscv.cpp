@@ -7,8 +7,8 @@
 #include "../h/tcb.hpp"
 #include "../h/sem.hpp"
 #include "../h/print.hpp"
-#include "../lib/mem.h"   //dok ne uvezem svoj MemmoryAllocator
-
+//#include "../lib/mem.h"   //dok ne uvezem svoj MemmoryAllocator
+#include "../h/MemoryAllocator.hpp"
 
 void Riscv::popSppSpie() {
     mc_sstatus(SSTATUS_SPP);
@@ -28,14 +28,16 @@ void Riscv::handleSupervisorTrap() {
                 size_t size;
                 __asm__ volatile("ld %0, 88(s0)" : "=r"(size));
                 size = size * MEM_BLOCK_SIZE;
-                void* returnAdr = __mem_alloc(size);
+//                void* returnAdr = __mem_alloc(size);
+                void* returnAdr = MemoryAllocator::mem_alloc(size);
                 __asm__ volatile("sd %0, 80(s0)" : : "r"(returnAdr));
                 break;
             }
             case 0x02: { //mem_free
                 void* adrPtr;
                 __asm__ volatile("ld %0, 88(s0)" : "=r"(adrPtr));
-                int retVal = __mem_free(adrPtr);
+//                int retVal = __mem_free(adrPtr);
+                int retVal = MemoryAllocator::mem_free(adrPtr);
                 __asm__ volatile("sd %0, 80(s0)" : : "r"(retVal));
                 break;
             }

@@ -5,6 +5,7 @@
 #include "../h/riscv.hpp"
 #include "../h/syscall_c.h"
 #include "../h/tcb.hpp"
+#include "../h/MemoryAllocator.hpp"
 //#include "../h/print.hpp"
 
 void userMain();
@@ -17,7 +18,7 @@ void shutdown() {
 extern void sem_test2_main();
 
 int main() {
-
+    MemoryAllocator::initialize();
     Riscv::w_stvec((uint64) &Riscv::supervisorTrap);
 
     thread_create(&TCB::running, nullptr, nullptr);
@@ -25,7 +26,7 @@ int main() {
     userMain();
     //sem_test2_main();
 
-    //shutdown();
+//    shutdown();
     return 0;
 }
 
