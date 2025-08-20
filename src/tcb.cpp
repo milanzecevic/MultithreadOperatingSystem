@@ -17,8 +17,13 @@ TCB *TCB::createThread(Body body, void* arg, char* stack_space)
 void TCB::dispatch()
 {
     TCB *old = running;
-    if (!old->isFinished() && !old->isBlocked()) { Scheduler::put(old); }
+    if(old->getState() != TCB::FINISHED && old->getState() != TCB::BLOCKED) {
+        old->setState(TCB::READY);
+        Scheduler::put(old);
+    }
+    //if (!old->isFinished() && !old->isBlocked()) { Scheduler::put(old); }
     running = Scheduler::get();
+    running->setState(TCB::RUNNING);
 
     TCB::contextSwitch(&old->context, &running->context);
 }

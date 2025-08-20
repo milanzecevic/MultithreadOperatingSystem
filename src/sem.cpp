@@ -29,7 +29,7 @@ void Semaphore::sem_signal() {
 }
 
 int Semaphore::sem_trywait() {
-    val--;
+    this->val--;
     if(val >= 0) {
         return 0;
     } else {
@@ -40,16 +40,16 @@ int Semaphore::sem_trywait() {
 
 void Semaphore::block() {
     blockedThreadQueue.addLast(TCB::running);
-    // TCB::running->state = TCB::BLOCKED;
-    TCB::running->setBlocked(true);
+    TCB::running->setState(TCB::BLOCKED);
+    //TCB::running->setBlocked(true);
     TCB::dispatch();
 }
 
 void Semaphore::unblock() {
     TCB* thread = blockedThreadQueue.removeFirst();
     if(thread != nullptr) {
-        //     TCB::running->state = TCB::READY;
-        thread->setBlocked(false);
+        TCB::running->setState(TCB::READY);
+        //thread->setBlocked(false);
         Scheduler::put(thread);
     }
 }

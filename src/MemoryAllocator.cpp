@@ -9,7 +9,7 @@ MemBlock* MemoryAllocator::usedMem = nullptr;
 
 void MemoryAllocator::initialize() {
     freeMem = (MemBlock*)HEAP_START_ADDR;
-    size_t heapSize = (char*)HEAP_END_ADDR - (char*)HEAP_START_ADDR;
+    size_t heapSize = ((char*)HEAP_END_ADDR - (char*)HEAP_START_ADDR) - sizeof(MemBlock);
     freeMem->size = heapSize / MEM_BLOCK_SIZE;
     freeMem->next = nullptr;
     usedMem = nullptr;

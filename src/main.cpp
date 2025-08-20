@@ -15,7 +15,6 @@ void shutdown() {
     *shutdownAdr = 0x5555;
 }
 
-extern void sem_test2_main();
 
 int main() {
     MemoryAllocator::initialize();
@@ -24,7 +23,6 @@ int main() {
     thread_create(&TCB::running, nullptr, nullptr);
 
     userMain();
-    //sem_test2_main();
 
 //    shutdown();
     return 0;

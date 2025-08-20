@@ -16,21 +16,21 @@
 class TCB
 {
 public:
-//    enum State { READY, RUNNING, BLOCKED, FINISHED };
+    enum State { READY, RUNNING, BLOCKED, FINISHED };
 
     ~TCB() { delete[] stack; }
 
-    bool isFinished() const { return finished; }
-
-    void setFinished(bool value) { finished = value; }
-
-    bool isBlocked() const { return blocked; }
-
-    void setBlocked(bool blocked) { blocked = blocked; }
-
-//    State getState() const { return state; }
+//    bool isFinished() const { return finished; }
 //
-//    void setState(State s) { state = s; }
+//    void setFinished(bool value) { this->finished = value; }
+//
+//    bool isBlocked() const { return blocked; }
+//
+//    void setBlocked(bool blocked) { this->blocked = blocked; }
+
+    State getState() const { return state; }
+
+    void setState(State s) { this->state = s; }
 
     using Body = void (*)(void *);
 
@@ -46,8 +46,9 @@ private:
             context({(uint64) &threadWrapper,
                      stack != nullptr ? (uint64) &stack[DEFAULT_STACK_SIZE] : 0
                     }),
-            finished(false),
-            blocked(false)
+//            finished(false),
+//            blocked(false),
+            state(TCB::READY)
     {
         if (body != nullptr) { Scheduler::put(this); }
     }
@@ -61,9 +62,9 @@ private:
     void* arg;
     char* stack;
     Context context;
-    //State state;
-    bool finished;
-    bool blocked;
+    State state;
+//    bool finished;
+//    bool blocked;
 
     friend class Riscv;
     friend class Semaphore;

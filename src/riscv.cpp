@@ -7,8 +7,12 @@
 #include "../h/tcb.hpp"
 #include "../h/sem.hpp"
 #include "../h/print.hpp"
-//#include "../lib/mem.h"   //dok ne uvezem svoj MemmoryAllocator
 #include "../h/MemoryAllocator.hpp"
+
+#define userECALL 0x0000000000000008UL
+#define systemECALL 0x0000000000000009UL
+#define TIMER 0x8000000000000001UL
+#define CONSOLE 0x8000000000000009UL
 
 void Riscv::popSppSpie() {
     mc_sstatus(SSTATUS_SPP);
@@ -18,7 +22,7 @@ void Riscv::popSppSpie() {
 
 void Riscv::handleSupervisorTrap() {
     uint64 scause = r_scause();
-    if(scause == 0x0000000000000008UL || scause == 0x0000000000000009UL) {
+    if(scause == userECALL || scause == systemECALL) {
         uint64 volatile sepc = r_sepc() + 4;
         uint64 volatile sstatus = r_sstatus();
         uint64 sysCallCode;
@@ -56,8 +60,8 @@ void Riscv::handleSupervisorTrap() {
                 break;
             }
             case 0x12: { //thread_exit
-                //TCB::running->setState(TCB::FINISHED);
-                TCB::running->setFinished(true);
+                TCB::running->setState(TCB::FINISHED);
+                //TCB::running->setFinished(true);
                 TCB::dispatch();
                 __asm__ volatile("sd %0, 80(s0)" : : "r"(0));
                 break;
@@ -119,9 +123,9 @@ void Riscv::handleSupervisorTrap() {
         }
         w_sstatus(sstatus);
         w_sepc(sepc);
-    } else if(scause == 0x8000000000000009UL) {
+    } else if(scause == CONSOLE) {
         console_handler();
-    } else if(scause == 0x8000000000000001UL) {
+    } else if(scause == TIMER) {
         Riscv::mc_sip(SIP_SSIE);
     } else {
         //error
