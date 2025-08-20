@@ -22,11 +22,11 @@ public:
 
     bool isFinished() const { return finished; }
 
-    void setFinished(bool value) { finished = value; }
+    void setFinished(bool value) { this->finished = value; }
 
     bool isBlocked() const { return blocked; }
 
-    void setBlocked(bool blocked) { blocked = blocked; }
+    void setBlocked(bool blocked) { this->blocked = blocked; }
 
 //    State getState() const { return state; }
 //

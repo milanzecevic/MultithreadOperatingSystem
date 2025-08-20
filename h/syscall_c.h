@@ -27,7 +27,7 @@ int sem_trywait(sem_t id);
 
 const int EOF = -1;
 char getc();
-void putc(char);
+void putc(char c);
 
 
 #endif //OSPROJECT_SYSCALL_C_H

@@ -15,7 +15,7 @@ void shutdown() {
     *shutdownAdr = 0x5555;
 }
 
-extern void sem_test2_main();
+void run_additional_semaphore_tests();
 
 int main() {
     MemoryAllocator::initialize();
@@ -24,9 +24,10 @@ int main() {
     thread_create(&TCB::running, nullptr, nullptr);
 
     userMain();
-    //sem_test2_main();
+    //run_additional_semaphore_tests();
 
 //    shutdown();
     return 0;
+
 }
 

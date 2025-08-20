@@ -3,7 +3,6 @@
 //
 
 #include "../h/syscall_c.h"
-#include "../lib/console.h"
 #include "../lib/hw.h"
 
 void *mem_alloc(size_t size) {
@@ -145,11 +144,11 @@ int sem_trywait(sem_t id) {
 }
 
 char getc() {
-    char c;
+    uint64 volatile c = 0;
     __asm__ volatile("mv a0, %0" : : "r"(0x41));
     __asm__ volatile("ecall");
-    __asm__ volatile("mv %0, a0" : "=r"(c));
-    return c;
+    __asm__ volatile("mv %0, a0" : "=r" (c));
+    return (char) c;
 }
 
 void putc(char c) {

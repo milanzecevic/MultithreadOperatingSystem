@@ -9,8 +9,10 @@ Semaphore *Semaphore::createSem(uint64 val) {
 }
 
 void Semaphore::sem_close() {
-    while(blockedThreadQueue.peekFirst() != nullptr) {
-        unblock();
+    TCB* curr = 0;
+    while (blockedThreadQueue.peekFirst()){
+        curr = blockedThreadQueue.removeFirst();
+        Scheduler::put(curr);
     }
 }
 

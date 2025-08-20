@@ -11,7 +11,7 @@
 
 class Semaphore {
 public:
-    Semaphore(unsigned init=1) : val(init) {}
+    Semaphore(uint64 init) : val(init) {}
     void sem_close();
 
     void sem_wait();

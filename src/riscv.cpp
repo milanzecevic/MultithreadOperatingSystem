@@ -7,7 +7,6 @@
 #include "../h/tcb.hpp"
 #include "../h/sem.hpp"
 #include "../h/print.hpp"
-//#include "../lib/mem.h"   //dok ne uvezem svoj MemmoryAllocator
 #include "../h/MemoryAllocator.hpp"
 
 void Riscv::popSppSpie() {
