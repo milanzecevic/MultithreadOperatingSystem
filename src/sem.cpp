@@ -29,12 +29,11 @@ void Semaphore::sem_signal() {
 }
 
 int Semaphore::sem_trywait() {
-    this->val--;
-    if(val >= 0) {
-        return 0;
-    } else {
-        val++;
+    if(this->val > 0) {
+        this->val--;
         return 1;
+    } else {
+        return 0;
     }
 }
 

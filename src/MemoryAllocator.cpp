@@ -87,16 +87,16 @@ int MemoryAllocator::mem_free(void* ptr) {
     return -2;
 }
 
-MemBlock* MemoryAllocator::findFirstFit(size_t blocks) {
-    MemBlock* curr = freeMem;
-    while (curr) {
-        if (curr->size >= blocks) {
-            return curr;
-        }
-        curr = curr->next;
-    }
-    return nullptr;
-}
+//MemBlock* MemoryAllocator::findFirstFit(size_t blocks) {
+//    MemBlock* curr = freeMem;
+//    while (curr) {
+//        if (curr->size >= blocks) {
+//            return curr;
+//        }
+//        curr = curr->next;
+//    }
+//    return nullptr;
+//}
 
 void MemoryAllocator::insertToFreeList(MemBlock* block) {
     if (!freeMem || block < freeMem) {
@@ -138,43 +138,43 @@ bool MemoryAllocator::isValidHeapAddress(void* addr) {
     return addr >= HEAP_START_ADDR && addr < HEAP_END_ADDR;
 }
 
-void MemoryAllocator::printHeapStatus() {
-    size_t freeBlocks = 0;
-    size_t usedBlocks = 0;
-    size_t freeCount = 0;
-    size_t usedCount = 0;
-
-    MemBlock* curr = freeMem;
-    while (curr) {
-        freeBlocks += curr->size;
-        freeCount++;
-        curr = curr->next;
-    }
-
-    curr = usedMem;
-    while (curr) {
-        usedBlocks += curr->size;
-        usedCount++;
-        curr = curr->next;
-    }
-}
-
-size_t MemoryAllocator::getUsedMemory() {
-    size_t usedBlocks = 0;
-    MemBlock* curr = usedMem;
-    while (curr) {
-        usedBlocks += curr->size;
-        curr = curr->next;
-    }
-    return usedBlocks * MEM_BLOCK_SIZE;
-}
-
-size_t MemoryAllocator::getFreeMemory() {
-    size_t freeBlocks = 0;
-    MemBlock* curr = freeMem;
-    while (curr) {
-        freeBlocks += curr->size;
-        curr = curr->next;
-    }
-    return freeBlocks * MEM_BLOCK_SIZE;
-}
+//void MemoryAllocator::printHeapStatus() {
+//    size_t freeBlocks = 0;
+//    size_t usedBlocks = 0;
+//    size_t freeCount = 0;
+//    size_t usedCount = 0;
+//
+//    MemBlock* curr = freeMem;
+//    while (curr) {
+//        freeBlocks += curr->size;
+//        freeCount++;
+//        curr = curr->next;
+//    }
+//
+//    curr = usedMem;
+//    while (curr) {
+//        usedBlocks += curr->size;
+//        usedCount++;
+//        curr = curr->next;
+//    }
+//}
+//
+//size_t MemoryAllocator::getUsedMemory() {
+//    size_t usedBlocks = 0;
+//    MemBlock* curr = usedMem;
+//    while (curr) {
+//        usedBlocks += curr->size;
+//        curr = curr->next;
+//    }
+//    return usedBlocks * MEM_BLOCK_SIZE;
+//}
+//
+//size_t MemoryAllocator::getFreeMemory() {
+//    size_t freeBlocks = 0;
+//    MemBlock* curr = freeMem;
+//    while (curr) {
+//        freeBlocks += curr->size;
+//        curr = curr->next;
+//    }
+//    return freeBlocks * MEM_BLOCK_SIZE;
+//}

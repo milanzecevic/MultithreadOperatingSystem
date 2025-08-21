@@ -15,7 +15,7 @@
 #define CONSOLE 0x8000000000000009UL
 
 void Riscv::popSppSpie() {
-    mc_sstatus(SSTATUS_SPP);
+    //mc_sstatus(SSTATUS_SPP);
     __asm__ volatile("csrw sepc, ra");
     __asm__ volatile("sret");
 }
