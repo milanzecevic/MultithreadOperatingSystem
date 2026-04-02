@@ -2,6 +2,10 @@
 
 A custom-built operating system kernel developed as part of the Operating Systems course at the School of Electrical Engineering (ETF), University of Belgrade.
 
+## 📄 Documentation
+The official technical specification and project requirements (from ETF Belgrade) can be found here:
+[Official Project Specification (PDF)](docs/OS_Project_Specification.pdf)
+
 ## 🛠 Project Overview
 This project involves designing and implementing a functional OS kernel with a focus on core system management, concurrency, and performance. Developed using **C++** and **Assembly**, it demonstrates deep understanding of low-level system interactions.
 
